@@ -7,11 +7,10 @@ namespace Domain
 {
     public class Order
     {
-        public Guid OrderID;
-        public  int TotalItem;
-        public decimal OrderTotal;
-         public  DateTime CreatedOn;
-  
+        public Guid Id{ get; set; }
+        public int CustomerID{ get; set; }
+         public ICollection<OrderDetail> OrderDetails {get;set;}
+         public  DateTime CreatedOn{ get; set; }
       
     }
 }
