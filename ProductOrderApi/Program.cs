@@ -24,11 +24,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+ 
+
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+using var scope = app.Services.CreateScope();
+var service = scope.ServiceProvider;
+try
+{
+    var context = service.GetRequiredService<DataContext>();
+    await context.Database.MigrateAsync();
+    await SeedData.SeedProduct(context);
+}
+catch (System.Exception)
+{
+    
+    throw;
+}
 
 app.Run();
