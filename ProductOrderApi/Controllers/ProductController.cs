@@ -24,6 +24,7 @@ namespace ProductOrderApi.Controllers
              foreach(Product product in products){
                 productsDto.Add(
                     new ProductDto {
+                        Id = product.Id,
                         Description = product.Description,
                         Price = product.Price,
                         Name = product.Name,

@@ -1,0 +1,20 @@
+.container{
+    width:250px;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.76); 
+     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.76);
+     border: 1px solid #1C6EA4;
+     text-align: center;
+     margin: 15px;
+}
+
+.btnAdd{
+    background-color: green;
+    width: 130px;
+    margin-bottom: 10px;
+    height: 50px;
+    border: none;
+    color: white;
+}
+.Emargin{
+   margin: 3px;
+}
