@@ -1,10 +1,14 @@
-.container{
-    display: flex;
-   flex-wrap: wrap;
-   margin: 20px;
-   padding: 20px;
-   width: fit-content;
-   justify-content: center;
-   
-   
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px;
+  padding: 20px;
+  width: fit-content;
+  justify-content: center;
+}
+
+.Icon {
+  text-align: right;
+  margin-right: 20%;
+  margin-top: 2%;
 }
