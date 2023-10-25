@@ -21,10 +21,10 @@ namespace ProductOrderApi.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> addOrder([FromBody] Order order){
+        public async Task<IActionResult> addOrder([FromBody] OrderDtos order){
        
-           Context.Orders.Add(order);       
-           return Ok( await Context.SaveChangesAsync());
+         var customer = Context.Customers.      
+           return Ok( );
     }
 }
 

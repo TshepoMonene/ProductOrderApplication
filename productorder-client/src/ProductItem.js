@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import style from "./ProductItem.module.css";
 
 export default function ProductItem({ products, updatecount }) {
+  var customer = "";
+  var order = new Order();
+  class Order {
+    constructor() {}
+
+    customer;
+    productId;
+  }
+
+  useEffect(() => {
+    customer = JSON.parse(localStorage.getItem("dataKey"));
+    order.customer = customer;
+    order.productId = products.id;
+    console.log(order);
+    console.log(customer);
+  }, []);
   return (
     <>
       <div className={style.container}>
@@ -16,7 +32,7 @@ export default function ProductItem({ products, updatecount }) {
         <h5 className={style.Emargin}>R{products.price}</h5>
         <h5 className={style.Emargin}> Qty: {products.quantity}</h5>
         <h6 className={style.Emargin}>{products.description}</h6>
-        <button className={style.btnAdd} onClick={updatecount}>
+        <button className={style.btnAdd} onClick={() => updatecount(order)}>
           Add to Cart
         </button>
       </div>

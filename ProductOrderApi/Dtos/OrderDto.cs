@@ -5,9 +5,7 @@ namespace ProductOrderApi.Dtos
 {
     public class OrderDtos
     {
-        public Guid Id{ get; set; }
-        public int CustomerID{ get; set; }
-         public ICollection<OrderDetail> OrderDetails {get;set;}
-         public  DateTime CreatedOn{ get; set; }
+        public CustomerDto customer{ get; set; }
+          public int product{ get; set; }
     }
 }

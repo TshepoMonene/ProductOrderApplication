@@ -5,18 +5,13 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function ProuctList() {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  
-
-  
 
   async function getProducts() {
-  await fetch("http://localhost:5286/Product", { method: "GET" })
+    await fetch("http://localhost:5286/Product", { method: "GET" })
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
@@ -27,14 +22,18 @@ export default function ProuctList() {
     getProducts();
   }, []);
 
-  function updateCount() {
-    fetch("https://localhost:7290/Oder",{})
+  function updateCount(Order) {
+    fetch("https://localhost:7290/Order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Order),
+    }).then();
     setCount(count + 1);
   }
   return (
     <>
       <div className={style.Icon}>
-        <button  onClick={()=>navigate("/Cart")}>
+        <button onClick={() => navigate("/Cart")}>
           <IconContext.Provider value={{ size: "40px" }}>
             <div style={{ display: "inline-block" }}>
               <FaShoppingCart />
@@ -67,10 +66,6 @@ export default function ProuctList() {
           ))}
         </div>
       </div>
-
-     
     </>
-
-    
   );
 }
