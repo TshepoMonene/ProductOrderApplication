@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-export default function Cart(itemcount) {
+export default function Cart() {
   return (
     <>
       <div>
-        <FaShoppingCart />
-        <i>{count}</i>
+          <div>
+            <img src=""/>
+            <h2>Cart</h2>
+          </div>
       </div>
     </>
   );
