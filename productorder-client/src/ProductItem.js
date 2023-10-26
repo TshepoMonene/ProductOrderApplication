@@ -3,18 +3,21 @@ import style from "./ProductItem.module.css";
 
 export default function ProductItem({ products, updatecount }) {
   var customer = "";
-  var order = new Order();
+  
   class Order {
     constructor() {}
 
     customer;
     productId;
   }
-
+  var order = {};
   useEffect(() => {
     customer = JSON.parse(localStorage.getItem("dataKey"));
-    order.customer = customer;
-    order.productId = products.id;
+    order ={
+     "customer": customer,
+      "productId": products.id
+      
+    }
     console.log(order);
     console.log(customer);
   }, []);

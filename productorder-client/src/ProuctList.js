@@ -27,8 +27,8 @@ export default function ProuctList() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Order),
-    }).then();
-    setCount(count + 1);
+    }).then(setCount(count + 1));
+    
   }
   return (
     <>
