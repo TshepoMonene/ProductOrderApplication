@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import CartItems from "./CartItems";
 
 export default function Cart() {
   return (
     <>
       <div>
           <div>
-            <img src=""/>
-            <h2>Cart</h2>
+          <CartItems></CartItems>
+            
           </div>
       </div>
     </>

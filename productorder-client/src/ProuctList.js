@@ -22,8 +22,8 @@ export default function ProuctList() {
     getProducts();
   }, []);
 
-  function updateCount(Order) {
-    fetch("https://localhost:7290/Order", {
+  async function updateCount(Order) {
+     await fetch("https://localhost:7290/Oder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Order),
@@ -58,7 +58,7 @@ export default function ProuctList() {
         <h2>Products</h2>
         <div className={style.container}>
           {products.map((product) => (
-            <ProductItem
+            <ProductItem 
               products={product}
               updatecount={updateCount}
               key={products.Id}

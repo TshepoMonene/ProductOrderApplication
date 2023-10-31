@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./ProductItem.module.css";
 
 export default function ProductItem({ products, updatecount }) {
+  const [order,setOrder] = useState({});
   var customer = "";
   
   class Order {
@@ -10,16 +11,15 @@ export default function ProductItem({ products, updatecount }) {
     customer;
     productId;
   }
-  var order = {};
+
   useEffect(() => {
     customer = JSON.parse(localStorage.getItem("dataKey"));
-    order ={
-     "customer": customer,
-      "productId": products.id
-      
-    }
-    console.log(order);
-    console.log(customer);
+    setOrder ({
+      "customer": customer,
+       "productId": products.id
+       
+     }) 
+  
   }, []);
   return (
     <>
