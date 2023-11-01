@@ -61,6 +61,20 @@ namespace ProductOrderApi.Controllers
               return Ok(products);
               
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] OrderDtos order){
+     var customer = Context.Customers
+     .Where(p=>p.FirstName == order.customer.FirstName && p.LastName == order.customer.LastName)
+     .FirstOrDefault();
+
+      var oderR = Context.Orders.Include(x => x.OrderDetails).Where(x => x.CustomerID == customer.Id &&
+       x.OrderDetails.ProductId == order.productId).FirstOrDefault();
+
+      Context.Orders.Remove(oderR);
+      return Ok(Context.SaveChanges());
+
+    }
 }
 
 }
