@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    text-align: center;
+    border-top: 2px solid #b3b3b3;
+
+}
+.imgstyle{
+
+}
+.text{
+    width: 250px;
+    margin: 20px;
+}
+
+
+.btnAdd {
+    background-color: rgb(255, 0, 0);
+    height: 90px;
+    border: none;
+    color: white;
+  }
+
+  .parentBox{
+    text-align: center;
+    margin: auto;
+    width: fit-content;
+  }
+
+  body{
+    background-color: rgb(243, 242, 231);
+  }

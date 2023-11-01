@@ -54,7 +54,7 @@ export default function CustomerForm() {
 
           <label>Surburb</label>
           <br />
-          <input onChange={(e) => (customer.FirstName = e.target.value)} />
+          <input onChange={(e) => (customer.Surburb = e.target.value)} />
           <br />
 
           <label>StreetName</label>

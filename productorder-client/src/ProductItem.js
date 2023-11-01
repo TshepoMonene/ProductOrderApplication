@@ -26,7 +26,7 @@ export default function ProductItem({ products, updatecount }) {
       <div className={style.container}>
         <div>
           <img
-            src={products.imageUrl}
+            src={require(`${products.imageUrl}`)}
             alt="Product Image"
             style={{ width: "200px", height: "200px" }}
           />
