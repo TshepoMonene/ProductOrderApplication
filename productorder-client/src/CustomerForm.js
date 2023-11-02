@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import style from "./CustomerForm.module.css"
 
 export default function CustomerForm() {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ export default function CustomerForm() {
   }
   return (
     <>
-      <div>
-        <div>
+      <div className={style.parentC}>
+        <div className={style.container}>
           <h1>Sign Up</h1>
           <label>FirstName</label>
           <br />
@@ -67,7 +68,7 @@ export default function CustomerForm() {
           <input onChange={(e) => (customer.PostalCode = e.target.value)} />
           <br />
 
-          <button onClick={() => Signup(customer)}>Sign up</button>
+          <button onClick={() => Signup(customer)} className={style.btn}>Sign up</button>
         </div>
       </div>
     </>

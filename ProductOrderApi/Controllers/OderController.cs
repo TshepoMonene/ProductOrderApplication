@@ -42,11 +42,11 @@ namespace ProductOrderApi.Controllers
     }
 
     [HttpGet("{name}")]
-    public  IActionResult GetCartProducts(string name ){
+    public  async Task<IActionResult> GetCartProducts(string name ){
     
            
-              var customers = Context.Customers.Where(x =>x.FirstName == name).FirstOrDefault();
-              var order = Context.Orders.Where( x =>x.CustomerID == customers.Id).Include(x =>x.OrderDetails).ToList();
+              var customers = await Context.Customers.Where(x =>x.FirstName == name).FirstOrDefaultAsync();
+              var order = await Context.Orders.Where( x =>x.CustomerID == customers.Id).Include(x =>x.OrderDetails).ToListAsync();
               
               var details = new List<OrderDetail>();
               foreach(Order order1 in order){
@@ -63,7 +63,7 @@ namespace ProductOrderApi.Controllers
     }
 
     [HttpDelete]
-    public IActionResult Delete([FromBody] OrderDtos order){
+    public async Task<IActionResult> Delete([FromBody] OrderDtos order){
      var customer = Context.Customers
      .Where(p=>p.FirstName == order.customer.FirstName && p.LastName == order.customer.LastName)
      .FirstOrDefault();
@@ -72,9 +72,12 @@ namespace ProductOrderApi.Controllers
        x.OrderDetails.ProductId == order.productId).FirstOrDefault();
 
       Context.Orders.Remove(oderR);
-      return Ok(Context.SaveChanges());
+      return Ok(await Context.SaveChangesAsync());
 
     }
+
+    
+    
 }
 
 }

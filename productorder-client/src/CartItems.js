@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from "react";
 import style from "./CartItems.module.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CartItems() {
   const [cart, setCart] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [order, setOrder] = useState({});
+  const [reload,setReload] = useState(0);
+  var order ={};
   var customers = {};
   useEffect(() => {
     customers = JSON.parse(localStorage.getItem("dataKey"));
 
     getCart();
-    calculateTotal();
-  }, []);
+  
+  }, [reload]);
 
   function calculateTotal() {
     var sum = 0;
     for (let i = 0; i < cart.length; i++) {
       sum = sum + cart[i].price;
     }
-    console.log(sum);
-    setTotal(sum);
+    return sum;
   }
 
   async function getCart() {
@@ -34,17 +35,45 @@ export default function CartItems() {
   }
 
   async function deleteItem(productId) {
-    setOrder({
+     order = {
       customer: JSON.parse(localStorage.getItem("dataKey")),
       productId: productId,
-    });
+    };
     console.log(order);
-    await fetch("https://localhost:7290/Oder", {
+    await fetch("https://localhost:7290/Oder/", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
-    });
+    }).finally(()=>{ 
+      notifyDelete();
+      setReload(reload+1);});
+   
   }
+
+  async function clearCart(){
+
+    order = {
+      customer: JSON.parse(localStorage.getItem("dataKey")),
+      
+    };
+    console.log(order);
+    await fetch("https://localhost:7290/Checkout", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(order),
+  }).finally(()=>{
+    notify();
+     setReload(reload+1);});
+
+  }
+  const notify = () => toast.success("Checked Out Successfully !", {
+    position: toast.POSITION.TOP_CENTER
+  });
+  const notifyDelete = () => toast.error("Removed !", {
+    position: toast.POSITION.TOP_LEFT
+  });
+
+
   return (
     <>
       <div className={style.parentBox}>
@@ -62,6 +91,7 @@ export default function CartItems() {
               className={style.btnAdd}
               onClick={() => {
                 deleteItem(cart.id);
+               
               }}
             >
               Remove
@@ -69,8 +99,9 @@ export default function CartItems() {
           </div>
         ))}
 
-        <h1>Total:R {total}</h1>
-        <button className={style.btnChck}>CheckOut</button>
+        <h1>Total:R {(calculateTotal())}</h1>
+        <button className={style.btnChck} onClick={()=>{clearCart()}}>CheckOut</button>
+        <ToastContainer />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import style from "./ProuctList.module.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
 export default function ProuctList() {
   const [products, setProducts] = useState([]);
@@ -32,6 +33,7 @@ export default function ProuctList() {
   }
   return (
     <>
+    <Nav></Nav>
       <div className={style.Icon}>
         <button onClick={() => navigate("/Cart")}>
           <IconContext.Provider value={{ size: "40px" }}>

@@ -7,7 +7,6 @@ export default function ProductItem({ products, updatecount }) {
   
   class Order {
     constructor() {}
-
     customer;
     productId;
   }
