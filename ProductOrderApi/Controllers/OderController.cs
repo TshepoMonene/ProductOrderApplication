@@ -41,7 +41,7 @@ namespace ProductOrderApi.Controllers
            return Ok( await Context.SaveChangesAsync());
     }
 
-    [HttpGet("{name}")]
+    [HttpGet("{id}")]
     public  async Task<IActionResult> GetCartProducts(string name ){
     
            
