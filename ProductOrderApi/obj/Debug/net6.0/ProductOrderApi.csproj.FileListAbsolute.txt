@@ -206,3 +206,5 @@ C:\Users\user\Desktop\ProductOrder\ProductOrderApplication\ProductOrderApi\obj\D
 C:\Users\user\Desktop\ProductOrder\ProductOrderApplication\ProductOrderApi\obj\Debug\net6.0\ProductOrderApi.pdb
 C:\Users\user\Desktop\ProductOrder\ProductOrderApplication\ProductOrderApi\obj\Debug\net6.0\ProductOrderApi.genruntimeconfig.cache
 C:\Users\user\Desktop\ProductOrder\ProductOrderApplication\ProductOrderApi\obj\Debug\net6.0\ref\ProductOrderApi.dll
+C:\Users\tmonene\Desktop\ProductOrderApp\ProductOrderApi\bin\Debug\net6.0\MediatR.dll
+C:\Users\tmonene\Desktop\ProductOrderApp\ProductOrderApi\bin\Debug\net6.0\MediatR.Contracts.dll

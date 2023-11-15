@@ -1,80 +1,54 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Application.Orders;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Persistence;
-using ProductOrderApi.Dtos;
 
 namespace ProductOrderApi.Controllers
 {
 
-        [ApiController]
+    [ApiController]
         [Route("[controller]")] 
     public class OderController:ControllerBase
     {
-        public readonly DataContext Context;
+        
+        private readonly IMediator mediator;
 
-        public OderController(DataContext context){
-            this.Context = context;
-
+        public OderController(IMediator mediator)
+        {
+          this.mediator = mediator;     
         }
+
         [HttpPost]
-        public async Task<IActionResult> addOrder([FromBody] OrderDtos order){
+        public async Task<IActionResult> AddOrder(Order order){
        
-         var customer = Context.Customers.Where(p=>p.FirstName == order.customer.FirstName && p.LastName == order.customer.LastName).FirstOrDefault(); 
-                  
+          await mediator.Send(new Create.Command{Order = order});
 
-            var order1 = new Order
-            {
-                CustomerID =  customer.Id ,
-               OrderDetails = new OrderDetail{
-                ProductId = Convert.ToInt32(order.productId),
-                CreatedOn = DateTime.Now
-               }
+          return Ok();
+        }
 
-               };
-                
-         Context.Orders.Add(order1);
-           return Ok( await Context.SaveChangesAsync());
-    }
+        [HttpGet("{id}")]
+        public  async Task<ActionResult<List<Order>>> GetOrders(int id)
+        {
+          return await mediator.Send(new List.Query{Id = id});
+                     
+        }
 
-    [HttpGet("{id}")]
-    public  async Task<IActionResult> GetCartProducts(string name ){
-    
-           
-              var customers = await Context.Customers.Where(x =>x.FirstName == name).FirstOrDefaultAsync();
-              var order = await Context.Orders.Where( x =>x.CustomerID == customers.Id).Include(x =>x.OrderDetails).ToListAsync();
-              
-              var details = new List<OrderDetail>();
-              foreach(Order order1 in order){
-                details.Add(order1.OrderDetails);
-              }
-              
-              var products = new List<Product>();
-              foreach(OrderDetail products1 in details)
-              {
-                products.Add(Context.Products.Where( x => x.Id == products1.ProductId).FirstOrDefault());
-              }
-              return Ok(products);
-              
-    }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteOrder(int id)
+        {
+          await mediator.Send(new Delete.Command{Id = id});
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] OrderDtos order){
-     var customer = Context.Customers
-     .Where(p=>p.FirstName == order.customer.FirstName && p.LastName == order.customer.LastName)
-     .FirstOrDefault();
+          return Ok();
+        }
 
-      var oderR = Context.Orders.Where(x => x.CustomerID == customer.Id &&
-       x.OrderDetails.ProductId == order.productId).Include(x => x.OrderDetails).FirstOrDefault();
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AddQuantity(int id)
+        {
+          await mediator.Send(new Edit.Command{Id = id});
 
-      Context.Orders.Remove(oderR);
-      return Ok(await Context.SaveChangesAsync());
-
-    }
+          return Ok();
+        }
 
     
     

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Customers;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Persistence;
 
@@ -13,17 +15,25 @@ namespace ProductOrderApi.Controllers
      [Route("[controller]")]
     public class CustomerController:ControllerBase
     {
-        public readonly DataContext Context;
-        public CustomerController(DataContext context){
-            this.Context = context;
+        private readonly IMediator mediator;
+        
+        public CustomerController(IMediator mediator){
+            this.mediator = mediator;
+            
         }
 
         [HttpPost]
-        public  async Task<IActionResult> addCustomer(Customer customer){
+        public  async Task<IActionResult> AddCustomer(Customer customer){
           
-          Context.Customers.Add(customer);
+           await mediator.Send(new Create.Command{Customer = customer});
 
-          return Ok(await Context.SaveChangesAsync());
+           return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<Customer>>> GetCustomer(int id)
+        {
+           return await mediator.Send(new List.Query{Id = id});
         }
 
         

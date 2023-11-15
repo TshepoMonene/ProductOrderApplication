@@ -1,31 +1,32 @@
-using Domain;
 using MediatR;
 using Persistence;
 
 namespace Application.Orders
 {
-    public class Create
+    public class Edit
     {
         public class Command:IRequest
         {
-            public Order Order {get;set;}
+            public int Id { get; set; }
         }
 
         public class Handler:IRequestHandler<Command>
         {
-          private readonly DataContext context;
+        private readonly DataContext context; 
             public Handler(DataContext context)
             {
-            this.context = context;
-
+              this.context = context;
             }
 
             public async Task Handle(Command request, CancellationToken cancellationToken)
             {
-                 context.Orders.Add(request.Order);
+                var orderDetail = context.OrderDetails.Where(x =>x.Id == request.Id).FirstOrDefault();
 
-                 await context.SaveChangesAsync();
+                orderDetail.quantity ++;
 
+                context.Update(orderDetail);
+
+                await context.SaveChangesAsync();
             }
         }
     }

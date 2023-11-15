@@ -2,30 +2,29 @@ using Domain;
 using MediatR;
 using Persistence;
 
-namespace Application.Orders
+namespace Application.Customers
 {
     public class Create
     {
         public class Command:IRequest
         {
-            public Order Order {get;set;}
+            public Customer Customer { get; set; }
         }
 
         public class Handler:IRequestHandler<Command>
         {
-          private readonly DataContext context;
+            private readonly DataContext context;
             public Handler(DataContext context)
             {
             this.context = context;
-
+                
             }
 
             public async Task Handle(Command request, CancellationToken cancellationToken)
             {
-                 context.Orders.Add(request.Order);
+               context.Customers.Add(request.Customer);
 
-                 await context.SaveChangesAsync();
-
+               await context.SaveChangesAsync();
             }
         }
     }

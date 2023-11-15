@@ -8,7 +8,7 @@ namespace Domain
         public int Id{ get; set; }
         [ForeignKey("Customer")]
         public int CustomerID{ get; set; }
-        public ICollection<OrderDetail> OrderDetails {get;set;}         
+        public OrderDetail OrderDetails {get;set;}         
       
     }
 }
