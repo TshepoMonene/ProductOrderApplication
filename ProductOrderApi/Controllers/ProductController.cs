@@ -1,8 +1,7 @@
+using Application.Products;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Persistence;
-using ProductOrderApi.Dtos;
 
 namespace ProductOrderApi.Controllers
 {
@@ -11,31 +10,17 @@ namespace ProductOrderApi.Controllers
     public class ProductController:ControllerBase
     {
     
-        private readonly DataContext context;
-        public ProductController(DataContext context){
-            this.context = context;
+        private readonly IMediator mediator;
+    
+        public ProductController(IMediator mediator){
+            this.mediator = mediator;
+          
            
         }
         [HttpGet]
-        public async Task<ActionResult<List<ProductDto>>> getProducts(){
+        public async Task<ActionResult<List<Product>>> GetProducts(){
 
-            var products = await context.Products.ToListAsync();
-            var productsDto = new List<ProductDto>();
-             foreach(Product product in products){
-                productsDto.Add(
-                    new ProductDto {
-                        Id = product.Id,
-                        Description = product.Description,
-                        Price = product.Price,
-                        Name = product.Name,
-                        imageUrl = product.imageUrl,
-                        Quantity = product.Quantity
-
-                    }
-                );
-             }
-
-            return Ok(productsDto);
+            return await mediator.Send(new List.Query());
 
         }
     }

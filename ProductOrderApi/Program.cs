@@ -1,3 +1,4 @@
+using Application.Products;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -17,6 +18,8 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
 });
+//Mediator
+builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
 
 //Add dbcontext
 builder.Services.AddDbContext<DataContext>(
