@@ -68,8 +68,8 @@ namespace ProductOrderApi.Controllers
      .Where(p=>p.FirstName == order.customer.FirstName && p.LastName == order.customer.LastName)
      .FirstOrDefault();
 
-      var oderR = Context.Orders.Include(x => x.OrderDetails).Where(x => x.CustomerID == customer.Id &&
-       x.OrderDetails.ProductId == order.productId).FirstOrDefault();
+      var oderR = Context.Orders.Where(x => x.CustomerID == customer.Id &&
+       x.OrderDetails.ProductId == order.productId).Include(x => x.OrderDetails).FirstOrDefault();
 
       Context.Orders.Remove(oderR);
       return Ok(await Context.SaveChangesAsync());
