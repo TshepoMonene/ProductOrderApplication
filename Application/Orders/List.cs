@@ -22,7 +22,8 @@ namespace Application.Orders
             }
             public async Task<List<Order>> Handle(Query request, CancellationToken cancellationToken)
             {
-              return await context.Orders.Where(x => x.CustomerID == request.Id).ToListAsync();
+              return await context.Orders.Include(x =>x.OrderDetails).ThenInclude(p =>p.product).
+              Where(x => x.CustomerID == request.Id).ToListAsync();
             }
         }
     }

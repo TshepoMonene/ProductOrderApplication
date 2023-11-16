@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import style from "./CustomerForm.module.css"
+import style from "./CustomerForm.module.css";
 
 export default function CustomerForm() {
   const navigate = useNavigate();
@@ -29,48 +29,90 @@ export default function CustomerForm() {
     });
   }
   return (
-    <>
-      <div className={style.parentC}>
-        <div className={style.container}>
-          <h1>Sign Up</h1>
-          <label>FirstName</label>
-          <br />
-          <input onChange={(e) => (customer.FirstName = e.target.value)} />
-          <br />
+    <form className="border-b border-gray-900/10 pb-12">
+      <h2 className="text-base font-semibold leading-7 text-gray-900">
+        Personal Information
+      </h2>
+      <p className="mt-1 text-sm leading-6 text-gray-600">
+        Use a permanent address where you can receive mail.
+      </p>
 
-          <label>LastName</label>
-          <br />
-          <input onChange={(e) => (customer.LastName = e.target.value)} />
-          <br />
+      <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="first-name"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            First name
+          </label>
+          <div className="mt-2">
+            <input
+              type="text"
+              name="first-name"
+              id="first-name"
+              autoComplete="given-name"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
 
-          <label>AddressType</label>
-          <br />
-          <input onChange={(e) => (customer.AddressType = e.target.value)} />
-          <br />
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="last-name"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Last name
+          </label>
+          <div className="mt-2">
+            <input
+              type="text"
+              name="last-name"
+              id="last-name"
+              autoComplete="family-name"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
 
-          <label>City</label>
-          <br />
-          <input onChange={(e) => (customer.City = e.target.value)} />
-          <br />
+        <div className="sm:col-span-4">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Email address
+          </label>
+          <div className="mt-2">
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
 
-          <label>Surburb</label>
-          <br />
-          <input onChange={(e) => (customer.Surburb = e.target.value)} />
-          <br />
-
-          <label>StreetName</label>
-          <br />
-          <input onChange={(e) => (customer.StreetName = e.target.value)} />
-          <br />
-
-          <label>Postal Code</label>
-          <br />
-          <input onChange={(e) => (customer.PostalCode = e.target.value)} />
-          <br />
-
-          <button onClick={() => Signup(customer)} className={style.btn}>Sign up</button>
+        <div className="sm:col-span-3">
+          <label
+            htmlFor="country"
+            className="block text-sm font-medium leading-6 text-gray-900"
+          >
+            Country
+          </label>
+          <div className="mt-2">
+            <select
+              id="country"
+              name="country"
+              autoComplete="country-name"
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+            >
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Mexico</option>
+            </select>
+          </div>
         </div>
       </div>
-    </>
+    </form>
   );
 }
