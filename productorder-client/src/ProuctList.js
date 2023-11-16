@@ -36,7 +36,7 @@ export default function ProuctList() {
     <Nav></Nav>
       <div className={style.Icon}>
         <button onClick={() => navigate("/Cart")}>
-          <IconContext.Provider value={{ size: "40px" }}>
+          <IconContext.Provider value={{ size: "40px",color:"blue" }}>
             <div style={{ display: "inline-block" }}>
               <FaShoppingCart />
             </div>
