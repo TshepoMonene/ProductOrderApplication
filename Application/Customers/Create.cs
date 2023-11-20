@@ -1,5 +1,6 @@
 using Domain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Customers
@@ -22,9 +23,10 @@ namespace Application.Customers
 
             public async Task Handle(Command request, CancellationToken cancellationToken)
             {
+              
                context.Customers.Add(request.Customer);
-
                await context.SaveChangesAsync();
+               await context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT MyTable OFF");
             }
         }
     }
