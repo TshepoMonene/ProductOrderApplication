@@ -11,9 +11,10 @@ import { Customer } from "./Customer";
 import { useId } from "react";
 
 export default observer(function CustomerForm() {
+  
   var customer = new Customer();
   const navigate = useNavigate();
-  customer.Id = useId();
+
   async function Signup(customer) {
     fetch("https://localhost:7290/Customer", {
       method: "POST",
@@ -22,7 +23,7 @@ export default observer(function CustomerForm() {
     }).then(() => {
       console.log(customer);
       store.addCustomer(customer);
-      navigate("/home");
+      navigate("/Login");
     });
   }
   return (
@@ -53,6 +54,20 @@ export default observer(function CustomerForm() {
             onChange={(e) => (customer.LastName = e.target.value)}
           />
         </Form.Group>
+
+        <Form.Label>Email</Form.Label>
+          <Form.Control
+            className=""
+            placeholder=""
+            onChange={(e) => (customer.Email = e.target.value)}
+          />
+
+        <Form.Label>Password</Form.Label>
+          <Form.Control
+            className=""
+            placeholder=""
+            onChange={(e) => (customer.Password = e.target.value)}
+          />
 
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>City</Form.Label>

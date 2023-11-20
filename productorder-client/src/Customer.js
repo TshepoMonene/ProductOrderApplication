@@ -1,8 +1,10 @@
 export class Customer {
   constructor() {}
-  Id = 0;
+  id;
   FirstName = "";
   LastName = "";
+  Email="";
+  Password="";
   AddressType = "";
   City = "";
   Surburb = "";

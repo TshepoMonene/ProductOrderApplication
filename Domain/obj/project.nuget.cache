@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "1LQIiN9MGasgva7UjuxjmqAg1nuW8+PPoyRYQXVgKLcTvpDEqyhqHsiiBN2Nr9uywABY/qu2jRpmIJyGVjFJ6g==",
+  "dgSpecHash": "vxg/TudZ2FRiaePog0S1YhON1kTl3WeDRY8Mc1FLYozgfLjGLEeFqNju5o2n25hvLQOvb2Zf1hxqIKDVIjQDsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\user\\Desktop\\ProductOrder\\ProductOrderApplication\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\tmonene\\Desktop\\ProductOrderApp\\Domain\\Domain.csproj",
   "expectedPackageFiles": [],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://singdevops2:8081/repository/nuget-hosted/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

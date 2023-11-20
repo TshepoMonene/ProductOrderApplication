@@ -26,7 +26,7 @@ namespace Application.Customers
               
                context.Customers.Add(request.Customer);
                await context.SaveChangesAsync();
-               await context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT MyTable OFF");
+             
             }
         }
     }

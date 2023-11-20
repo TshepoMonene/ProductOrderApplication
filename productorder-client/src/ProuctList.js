@@ -5,8 +5,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
+import { store } from "./Store";
+import { observer } from "mobx-react";
 
-export default function ProuctList() {
+export default observer( function ProuctList() {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ export default function ProuctList() {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
-        console.log(products);
+        console.log(store.customer);
       });
   }
   useEffect(() => {
@@ -70,4 +72,4 @@ export default function ProuctList() {
       </div>
     </>
   );
-}
+})
