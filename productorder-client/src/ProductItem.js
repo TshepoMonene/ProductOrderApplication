@@ -2,24 +2,37 @@ import React, { useEffect, useState } from "react";
 import style from "./ProductItem.module.css";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { Order } from "./Order";
 
-export default function ProductItem({ products, updatecount }) {
-  const [order, setOrder] = useState({});
-  var customer = "";
+export default function ProductItem({products}) {
 
-  class Order {
-    constructor() {}
-    customer;
-    productId;
+
+  
+  useEffect(() => {
+   
+  }, []);
+
+   async function AddtoCart(){
+    var order = new Order();
+    var customer = sessionStorage.getItem("MyCustomer");
+     
+     order.customerId = customer.customerId;
+     order.Orderdetails.productId = products.id;
+
+    var results =  await fetch("https://localhost:7290/Oder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    })
+
+    if(results.status == 200){
+     console.log("OK");
+    }
+    else{
+      console.log("error");
+    }
   }
 
-  useEffect(() => {
-    customer = JSON.parse(localStorage.getItem("dataKey"));
-    setOrder({
-      customer: customer,
-      productId: products.id,
-    });
-  }, []);
   return (
     <>
       <Card style={{ width: "18rem" }} className="m-3">
@@ -33,7 +46,7 @@ export default function ProductItem({ products, updatecount }) {
           <Card.Title>{products.name}</Card.Title>
           <Card.Text>R: {products.price}</Card.Text>
           <Card.Text>Quantity: {products.quantity}</Card.Text>
-          <Button variant="primary" onClick={() => {}}>
+          <Button variant="primary" onClick={() => {AddtoCart()}}>
             Add to cart
           </Button>
         </Card.Body>

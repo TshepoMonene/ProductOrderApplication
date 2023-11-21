@@ -21,8 +21,7 @@ export default observer(function CustomerForm() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(customer),
     }).then(() => {
-      console.log(customer);
-      store.addCustomer(customer);
+   
       navigate("/Login");
     });
   }

@@ -4,7 +4,6 @@ import style from "./ProuctList.module.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
-import { store } from "./Store";
 import { observer } from "mobx-react";
 import NavBar from "./NavBar";
 
@@ -12,17 +11,35 @@ export default observer(function ProuctList() {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-
-  async function getProducts() {
-    await fetch("http://localhost:5286/Product", { method: "GET" })
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data);
-      });
-  }
+    
   useEffect(() => {
     getProducts();
   }, []);
+
+  async function getProducts() {
+     
+    try{
+      var response =  await fetch('https://localhost:7290/Product', { method: "GET" })
+
+      if(response ==200)
+      {
+         var results = await response.json();
+         setProducts(results);
+         console.log(results);
+         console.log(products);
+      }
+      else{
+
+      }
+    }
+    catch{
+
+    }
+     
+     
+  }
+  
+
 
   async function updateCount(Order) {
     await fetch("https://localhost:7290/Oder", {
@@ -31,26 +48,19 @@ export default observer(function ProuctList() {
       body: JSON.stringify(Order),
     }).then(setCount(count + 1));
   }
+
+ 
   return (
     <>
       <NavBar></NavBar>
       <div className={style.Icon}>
-        <button onClick={() => navigate("/Cart")}>
+        <button onClick={() => navigate("/Cart")} className={style.btnIcon}>
           <IconContext.Provider value={{ size: "40px", color: "blue" }}>
             <div style={{ display: "inline-block" }}>
               <FaShoppingCart />
-            </div>
+              </div>
 
-            <div
-              style={{
-                display: "inline-block",
-                backgroundColor: "green",
-                color: "white",
-                width: "25px",
-                textAlign: "center",
-                borderRadius: "50px",
-              }}
-            >
+            <div className={style.count}>
               <i>{count}</i>
             </div>
           </IconContext.Provider>
@@ -62,7 +72,6 @@ export default observer(function ProuctList() {
           {products.map((product) => (
             <ProductItem
               products={product}
-              updatecount={updateCount}
               key={products.Id}
             />
           ))}

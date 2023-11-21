@@ -12,3 +12,16 @@
   margin-right: 20%;
   margin-top: 2%;
 }
+.btnIcon{
+  border: none;
+  background-color:white;
+}
+
+.count{
+  display: inline-block;
+  background-color: green;
+  color: white;
+  width: 25px;
+  text-align: center;
+  border-radius: 50px;
+}
