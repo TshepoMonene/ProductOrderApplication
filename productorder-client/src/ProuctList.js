@@ -4,11 +4,11 @@ import style from "./ProuctList.module.css";
 import { FaShoppingCart } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
-import Nav from "./Nav";
 import { store } from "./Store";
 import { observer } from "mobx-react";
+import NavBar from "./NavBar";
 
-export default observer( function ProuctList() {
+export default observer(function ProuctList() {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export default observer( function ProuctList() {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data);
-        console.log(store.customer);
       });
   }
   useEffect(() => {
@@ -26,19 +25,18 @@ export default observer( function ProuctList() {
   }, []);
 
   async function updateCount(Order) {
-     await fetch("https://localhost:7290/Oder", {
+    await fetch("https://localhost:7290/Oder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(Order),
     }).then(setCount(count + 1));
-    
   }
   return (
     <>
-    <Nav></Nav>
+      <NavBar></NavBar>
       <div className={style.Icon}>
         <button onClick={() => navigate("/Cart")}>
-          <IconContext.Provider value={{ size: "40px",color:"blue" }}>
+          <IconContext.Provider value={{ size: "40px", color: "blue" }}>
             <div style={{ display: "inline-block" }}>
               <FaShoppingCart />
             </div>
@@ -62,7 +60,7 @@ export default observer( function ProuctList() {
         <h2>Products</h2>
         <div className={style.container}>
           {products.map((product) => (
-            <ProductItem 
+            <ProductItem
               products={product}
               updatecount={updateCount}
               key={products.Id}
@@ -72,4 +70,4 @@ export default observer( function ProuctList() {
       </div>
     </>
   );
-})
+});

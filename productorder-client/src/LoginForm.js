@@ -1,45 +1,35 @@
-import React, {  } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { FaUserLock } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
-import { store } from "./Store";
 import { observer } from "mobx-react";
 import { Login } from "./Login";
 
 export default observer(function LoginForm() {
-
   const navigate = useNavigate();
   var login = new Login();
 
   async function UserLogin(login) {
-
     try {
-      var response = await  fetch("https://localhost:7290/Login", 
-      { method: "POST",
+      var response = await fetch("https://localhost:7290/Login", {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(login),
+      });
 
-      })
-
-      if(response.status == 200){
-        var results = await response.json(); 
-        console.log(results)
-        store.addCustomer(results)
-        console.log(login)
-        console.log(store.customer.City)
+      if (response.status == 200) {
+        var results = await response.json();
+        sessionStorage.setItem("MyCustomer", JSON.stringify(results));
+        navigate("/home");
+      } else {
+        console.log("errorqw");
       }
-      else{
-        console.log("errorqw")
-      }
-      
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-           
   }
   return (
     <div className="d-flex align-items-center justify-content-center mt-4">
@@ -69,7 +59,9 @@ export default observer(function LoginForm() {
         <Button
           className="w-50 m-auto"
           variant="outline-primary "
-          onClick={() => {UserLogin(login)}}
+          onClick={() => {
+            UserLogin(login);
+          }}
         >
           Sign in
         </Button>
