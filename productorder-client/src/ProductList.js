@@ -11,45 +11,43 @@ export default observer(function ProuctList() {
   const [products, setProducts] = useState([]);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-    
-  useEffect(() => {
-    getProducts();
-  }, []);
 
   async function getProducts() {
-     
-    try{
-      var response =  await fetch('https://localhost:7290/Product', { method: "GET" })
+    try {
+      var response = await fetch("https://localhost:7290/Product", {
+        method: "GET",
+      });
 
-      if(response ==200)
-      {
-         var results = await response.json();
-         setProducts(results);
-         console.log(results);
-         console.log(products);
+      if (response.status == 200) {
+        var results = await response.json();
+        setProducts(results);
+      } else {
+        console.log("error");
       }
-      else{
-
-      }
+    } catch (error) {
+      console.log(error);
     }
-    catch{
-
-    }
-     
-     
-  }
-  
-
-
-  async function updateCount(Order) {
-    await fetch("https://localhost:7290/Oder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(Order),
-    }).then(setCount(count + 1));
   }
 
- 
+  useEffect(() => {
+    getProducts();
+    updateCount();
+  }, []);
+
+  async function updateCount() {
+    try {
+      var customer = JSON.parse(sessionStorage.getItem("MyCustomer"));
+      var response = await fetch("https://localhost:7290/Oder/" + customer.id, {
+        method: "GET",
+      });
+
+      if (response.status == 200) {
+        var results = await response.json();
+        setCount(results.length);
+      }
+    } catch {}
+  }
+
   return (
     <>
       <NavBar></NavBar>
@@ -58,7 +56,7 @@ export default observer(function ProuctList() {
           <IconContext.Provider value={{ size: "40px", color: "blue" }}>
             <div style={{ display: "inline-block" }}>
               <FaShoppingCart />
-              </div>
+            </div>
 
             <div className={style.count}>
               <i>{count}</i>
@@ -73,6 +71,7 @@ export default observer(function ProuctList() {
             <ProductItem
               products={product}
               key={products.Id}
+              updateCount={updateCount}
             />
           ))}
         </div>
