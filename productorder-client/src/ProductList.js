@@ -21,6 +21,7 @@ export default observer(function ProuctList() {
       if (response.status == 200) {
         var results = await response.json();
         setProducts(results);
+        console.log(products);
       } else {
         console.log("error");
       }

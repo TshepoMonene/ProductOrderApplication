@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 export default function NavBar() {
-  var customer = "";
+  var customer = JSON.parse(sessionStorage.getItem("MyCustomer"));
   useEffect(() => {
     customer = JSON.parse(sessionStorage.getItem("MyCustomer"));
   }, []);
@@ -16,6 +16,7 @@ export default function NavBar() {
         <Nav className="me-auto">
           <Nav.Link href="/home">Home</Nav.Link>
           <Nav.Link href="/Cart">Cart</Nav.Link>
+          <Nav.Link>{customer.firstname}</Nav.Link>
         </Nav>
       </Container>
     </Navbar>

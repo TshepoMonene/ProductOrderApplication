@@ -10,6 +10,7 @@ export default function ProductItem({ products, updateCount }) {
     var customer = JSON.parse(sessionStorage.getItem("MyCustomer"));
     order.customerId = customer.id;
     order.Orderdetails.productId = products.id;
+    order.Orderdetails.total = products.price;
 
     var results = await fetch("https://localhost:7290/Oder", {
       method: "POST",

@@ -42,10 +42,10 @@ namespace ProductOrderApi.Controllers
           return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> AddQuantity(int id)
+        [HttpPut]
+        public async Task<IActionResult> AddQuantity(int id,int operation)
         {
-          await mediator.Send(new Edit.Command{Id = id});
+          await mediator.Send(new Edit.Command{Id = id,Operation =operation});
 
           return Ok();
         }

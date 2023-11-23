@@ -17,6 +17,8 @@ namespace Domain
 
         public int quantity{ get; set; }
 
+        public decimal Total{ get; set; }
+
          public  DateTime CreatedOn{ get; set; }
       
     }

@@ -8,22 +8,30 @@ import { IconContext } from "react-icons/lib";
 import { store } from "./Store";
 import { observer } from "mobx-react";
 import { Customer } from "./Customer";
-import { useId } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default observer(function CustomerForm() {
-  
   var customer = new Customer();
   const navigate = useNavigate();
 
+  const notify = () =>
+    toast.error("Error,something bad happend !", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+
   async function Signup(customer) {
-    fetch("https://localhost:7290/Customer", {
+    var response = await fetch("https://localhost:7290/Customer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(customer),
-    }).then(() => {
-   
-      navigate("/Login");
     });
+
+    if (response.status == 200) {
+      navigate("/Login");
+    } else {
+      notify();
+    }
   }
   return (
     <div className="d-flex align-items-center justify-content-center mt-4">
@@ -53,20 +61,22 @@ export default observer(function CustomerForm() {
             onChange={(e) => (customer.LastName = e.target.value)}
           />
         </Form.Group>
-
-        <Form.Label>Email</Form.Label>
+        <Form.Group>
+          <Form.Label className="mb-3">Email</Form.Label>
           <Form.Control
             className=""
             placeholder=""
             onChange={(e) => (customer.Email = e.target.value)}
           />
-
-        <Form.Label>Password</Form.Label>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Password</Form.Label>
           <Form.Control
             className=""
             placeholder=""
             onChange={(e) => (customer.Password = e.target.value)}
           />
+        </Form.Group>
 
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>City</Form.Label>
@@ -113,13 +123,14 @@ export default observer(function CustomerForm() {
           />
         </Form.Group>
         <Button
-          className="w-50 m-auto"
+          className="w-100 m-auto"
           variant="outline-primary "
           onClick={() => Signup(customer)}
         >
           Sign up
         </Button>
       </Form>
+      <ToastContainer />
     </div>
   );
 });

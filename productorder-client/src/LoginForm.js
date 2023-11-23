@@ -7,10 +7,17 @@ import { FaUserLock } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { observer } from "mobx-react";
 import { Login } from "./Login";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default observer(function LoginForm() {
   const navigate = useNavigate();
   var login = new Login();
+
+  const notify = () =>
+    toast.error("Error : Password or Email Incorrect !", {
+      position: toast.POSITION.TOP_CENTER,
+    });
 
   async function UserLogin(login) {
     try {
@@ -25,7 +32,7 @@ export default observer(function LoginForm() {
         sessionStorage.setItem("MyCustomer", JSON.stringify(results));
         navigate("/home");
       } else {
-        console.log("errorqw");
+        notify();
       }
     } catch (error) {
       console.log(error);
@@ -48,7 +55,7 @@ export default observer(function LoginForm() {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3 col" controlId="exampleForm.ControlInput1">
+        <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
           <Form.Label> Password</Form.Label>
           <Form.Control
             type="password"
@@ -66,6 +73,7 @@ export default observer(function LoginForm() {
           Sign in
         </Button>
       </Form>
+      <ToastContainer />
     </div>
   );
 });
