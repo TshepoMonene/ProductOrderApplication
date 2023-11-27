@@ -105,7 +105,7 @@ export default function CartItem({ orders, getOrders }) {
               className={style.pic}
             ></img>
             <h3 className={style.text}>{order.orderDetails.product.name}</h3>
-            <h3 className={style.text}> R: {order.orderDetails.total}</h3>
+            <h3 className={style.text}> R{order.orderDetails.total}</h3>
             <div className={style.quantity}>
               <Button
                 className={style.btnQuantity}
@@ -115,7 +115,10 @@ export default function CartItem({ orders, getOrders }) {
               >
                 <FaMinus />
               </Button>
-              <h3 className={style.text}>{order.orderDetails.quantity}</h3>
+              <div className={style.qty}>
+                <h3 className={style.text}>{order.orderDetails.quantity}</h3>
+              </div>
+
               <Button
                 className={style.btnQuantity}
                 onClick={() => {

@@ -37,8 +37,8 @@ export default function ProductItem({ products, updateCount }) {
         />
         <Card.Body>
           <Card.Title>{products.name}</Card.Title>
-          <Card.Text>R: {products.price}</Card.Text>
-          <Card.Text>Quantity: {products.quantity}</Card.Text>
+          <Card.Text>R{products.price}</Card.Text>
+          <Card.Text>Qty: {products.quantity}</Card.Text>
           <Button
             variant="primary"
             onClick={() => {

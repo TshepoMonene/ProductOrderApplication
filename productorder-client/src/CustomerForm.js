@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -129,6 +129,15 @@ export default observer(function CustomerForm() {
         >
           Sign up
         </Button>
+        <h4>or</h4>
+        <h3
+          className="text-decoration-underline m-6"
+          onClick={() => {
+            navigate("/Login");
+          }}
+        >
+          Sign In
+        </h3>
       </Form>
       <ToastContainer />
     </div>
